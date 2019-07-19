@@ -7,7 +7,7 @@ class User(AbstractUser):
     email = models.EmailField()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ('email', 'first_name', 'last_name')
+    REQUIRED_FIELDS = ('email', 'password', 'first_name', 'last_name')
 
     def __str__(self):
         return self.first_name + " " + self.last_name

@@ -28,4 +28,16 @@ class Room(models.Model):
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{RoomType.objects.filter(id=self.room_type).name} Room {self.room_number} in Hotel {Hotel.objects.filter(id=self.hotel)}'
+        return f'{RoomType.objects.filter(id=self.room_type.id)[0].name} Room NO. "{self.room_number}" in Hotel "{Hotel.objects.filter(id=self.hotel.id)[0].name}"'
+
+
+class RoomReservation(models.Model):
+    created = models.DateTimeField(
+        verbose_name="Reservation Timestamp", auto_now=True)
+    starting_date = models.DateField()
+    expire_date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+
+    def __str__(self):
+            return f'Reserved for {User.objects.filter(id=self.user.id)[0]}, Expires: {self.expire_date}'
